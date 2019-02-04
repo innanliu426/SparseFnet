@@ -5,6 +5,7 @@ This paper develops methods for recovering high-resolution images from low-resol
 
 
 ## Model
+<img src="https://github.com/innanliu426/SparseFnet/blob/master/framework.PNG" height="24" width="48">
 ![](https://github.com/innanliu426/SparseFnet/blob/master/framework.PNG)
 
 ### Train and Test
