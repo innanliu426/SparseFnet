@@ -8,7 +8,7 @@ This paper develops methods for recovering high-resolution images from low-resol
 SparseFnet_train.py and SparseFnet_test.py, using process_patches.py and .png picture 
 
 
-### Requirement of Python environment 
+### Requirements of Python environment 
 numpy
 scipy
 matplotlib
