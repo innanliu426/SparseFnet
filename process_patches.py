@@ -97,9 +97,13 @@ def detail(x,y,z,i1,i2,j1,j2):
     plt.subplot(1, 3, 1)
     fig.gca().set_title('Original')
     imgplot =  plt.imshow(x[i1:i2,j1:j2], interpolation='nearest', aspect='auto',cmap = 'gray')
+    plt.axis('off')
+    
     plt.subplot(1, 3, 2)
     fig.gca().set_title('Reconstructed')
     imgplot =  plt.imshow(y[i1:i2,j1:j2], interpolation='nearest', aspect='auto',cmap = 'gray')
+    plt.axis('off')
+    
     plt.subplot(1, 3, 3)
     fig.gca().set_title('Ground Truth')
     imgplot =  plt.imshow(z[i1:i2,j1:j2], interpolation='nearest', aspect='auto',cmap = 'gray')
@@ -107,5 +111,5 @@ def detail(x,y,z,i1,i2,j1,j2):
     plt.show()
     
     mse = np.mean((y[i1:i2,j1:j2]-z[i1:i2,j1:j2])**2)
-    psnr = 20*np.log(255)-10*np.log(mse)
+    psnr = 20*np.log10(255)-10*np.log10(mse)
     print('PSNR:',  psnr)
