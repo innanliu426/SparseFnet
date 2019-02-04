@@ -6,7 +6,9 @@ This paper develops methods for recovering high-resolution images from low-resol
 
 ### Train and Test
 SparseFnet_train.py
+
 SparseFnet_test.py
+
 Use process_patches.py and .png picture 
 
 
