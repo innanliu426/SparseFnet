@@ -111,5 +111,6 @@ def detail(x,y,z,i1,i2,j1,j2):
     plt.show()
     
     mse = np.mean((y[i1:i2,j1:j2]-z[i1:i2,j1:j2])**2)
-    psnr = 20*np.log10(255)-10*np.log10(mse)
+    ## data already normalized to [0,1] interval
+    psnr = 20*np.log10(1)-10*np.log10(mse)
     print('PSNR:',  psnr)
