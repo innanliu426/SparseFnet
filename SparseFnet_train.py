@@ -18,6 +18,7 @@ from process_patches import *
 import keras
 import pandas as pd
 from scipy import misc
+from skimage import io
 from skimage.transform import resize
 from keras.layers import Input,Conv2D
 from keras.models import Model
@@ -29,18 +30,18 @@ from keras.layers import Reshape
 ####################### input data and pre-trianing process #######################
 ### read .png picture
 def proc_data(file):
-    truth = misc.imread(file) 
+    img = io.imread('test_org_5.png', as_grey=True)
     ### resize ground truth to be 300x300
-    truth = resize(truth, (300,300), anti_aliasing=True) 
+    truth = resize(img, (300,300), anti_aliasing=True) 
 
     ### compress the ground truth 
     x = resize(truth, (int(truth.shape[0]/row_enlarge_factor), int(truth.shape[1]/col_enlarge_factor)), anti_aliasing=True)
     x = scipy.ndimage.gaussian_filter(x,1)
 
     ### use grey scale from a RGB picture
-    X = x[:,:,0]
-    reduced = truth[:,:,0]
-
+    X = x[:,:]
+    reduced = truth[:,:]
+    
     ### cut the whole picture into small patches
     x_patches = patches(X, stepr = 1, stepc = 1, pixr = input_pixr, pixc = input_pixc)
     y_patches = patches(reduced, stepr = row_enlarge_factor, stepc = col_enlarge_factor,\
@@ -48,8 +49,7 @@ def proc_data(file):
     input_r, input_c,output_r, output_c,x_train, y_train = dct_data(x_patches,y_patches)  
     
     return X, reduced, input_r, input_c,output_r, output_c,x_train, y_train
-
-
+### input .png file name here
 X, reduced, input_r, input_c,output_r, output_c,x_train, y_train = proc_data(file = '***.png')
 
 

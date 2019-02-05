@@ -1,3 +1,4 @@
+
 row_enlarge_factor = 3
 col_enlarge_factor = 3
 input_pixr = 10  # number of row pixel for the patch
@@ -8,6 +9,7 @@ from process_patches import *
 import keras
 import pandas as pd
 import tensorflow as tf
+from skimage import io
 from scipy import misc
 from skimage.transform import resize
 from keras.layers import Input,Conv2D
@@ -22,9 +24,9 @@ resolution = load_model('trained_SparseFnet.h5',custom_objects={'tf':tf})
 
 
 def proc_data(file):
-    truth = misc.imread(file) 
+    img = io.imread('test_org_5.png', as_grey=True)
     ### resize ground truth to be 300x300
-    truth = resize(truth, (300,300), anti_aliasing=True) 
+    truth = resize(img, (300,300), anti_aliasing=True) 
 
     ### compress the ground truth 
     x = resize(truth, (int(truth.shape[0]/row_enlarge_factor), int(truth.shape[1]/col_enlarge_factor)), anti_aliasing=True)
@@ -50,4 +52,3 @@ pred = transback(resolution.predict(x_test))
 whole_pic = reconst(pred, x_test, X, col_enlarge_factor, row_enlarge_factor, num_pic = 1)
 ### show the compressed, recovered and ground truth pictures, and find PSNR for reconstruction quality
 detail(X,whole_pic,reduced,0,reduced.shape[0]-5,0,reduced.shape[1]-5)
-
